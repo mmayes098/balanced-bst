@@ -108,7 +108,7 @@ class Tree
   end
 
   def balanced?
-    (height(@root.leftChild) - height(@root.right_child)).abs <= 1
+    (height(@root.leftChild) - height(@root.rightChild)).abs <= 1
   end
 
   def rebalance

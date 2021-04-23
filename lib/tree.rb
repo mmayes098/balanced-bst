@@ -98,4 +98,22 @@ class Tree
 
     [height(node.leftChild), height(node.rightChild)].max + 1
   end
+
+  def depth(node)
+    if node.data < @root.data
+      height(@root.leftChild) - height(node) + 1
+    else
+      height(@root.rightChild) - height(node) + 1
+    end
+  end
+
+  def balanced?
+    (height(@root.leftChild) - height(@root.right_child)).abs <= 1
+  end
+
+  def rebalance
+    array = level_order
+    array.sort!.uniq!
+    @root = build_tree(array, 0, array.length - 1)
+  end
 end

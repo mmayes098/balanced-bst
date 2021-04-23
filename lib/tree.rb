@@ -1,9 +1,11 @@
 require_relative "node"
 
 class Tree
+  attr_accessor :root
+  
   def initialize(array)
-    array.sort!.uniq!
-    @root = build_tree(array, 0, array.length - 1)
+    @sorted = array.sort.uniq
+    @root = build_tree(@sorted, 0, @sorted.length - 1)
   end
 
   def build_tree(array, start, last)
@@ -19,5 +21,20 @@ class Tree
     pretty_print(node.rightChild, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.rightChild
     puts "#{prefix}#{is_left ? '└── ' : '┌── '}#{node.data}"
     pretty_print(node.leftChild, "#{prefix}#{is_left ? '    ' : '│   '}", true) if node.leftChild
+  end
+
+  def insert(value)
+    @sorted << value
+    @sorted.sort!.uniq!
+    @root = build_tree(@sorted, 0, @sorted.length - 1)
+  end
+
+  def delete(value)
+    if @sorted.include?(value)
+      @sorted.delete(value)
+      @root = build_tree(@sorted, 0, @sorted.length - 1)
+    else
+      puts "That value doesn't exist in the tree!"
+    end
   end
 end
